@@ -27,7 +27,7 @@ public class Book {
     }
 
     public void print(){
-        System.out.println("Titlul este "+titlu);
+        System.out.format("Titlul este %s \n",titlu);
 
         System.out.println("Paragrafele sunt: ");
         for(String i : this.paragraf)
