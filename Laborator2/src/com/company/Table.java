@@ -1,6 +1,6 @@
 package com.company;
 
-public class Table {
+public class Table implements Element{
     private String title;
 
     public Table(String txt){
