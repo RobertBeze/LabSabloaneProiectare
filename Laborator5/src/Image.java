@@ -7,6 +7,8 @@ public class Image implements Element, Picture{
     List<Element> content;
     PictureContent picc;
     Dimension dimm;
+    ImageLoaderFactory img = new ImageLoaderFactory();
+    ImageLoader trueimg;
 
     public Image(String txt){
         this.urll = txt;
@@ -14,8 +16,8 @@ public class Image implements Element, Picture{
         this.picc = new PictureContent(txt);
         this.content = new ArrayList<>();
         try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
+            this.trueimg = img.create(urll);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -33,7 +35,8 @@ public class Image implements Element, Picture{
     }
 
     public void print() {
-        System.out.println("Image with name: " + this.urll);
+        //System.out.println("Image with name: " + this.urll);
+        System.out.println(trueimg.load(urll));
         for (Element e : content) {
             e.print();
         }

@@ -4,10 +4,15 @@ import java.util.List;
 public class Paragraph implements Element{
     String text;
     List<Element> content;
+    AlignStrategy align = null;
 
     public Paragraph(String s){
         this.text = s;
         this.content = new ArrayList<>();
+    }
+
+    public void setAlignStrategy(AlignStrategy x){
+        this.align = x;
     }
 
     public void add(Element e){
@@ -23,7 +28,12 @@ public class Paragraph implements Element{
     }
 
     public void print(){
-        System.out.println("Paragraph: "+ this.text);
+        if(align!=null) {
+            align.render(text, new Context());
+        }
+        else{
+            System.out.println("Paragraph: "+ this.text);
+        }
         for(Element e : content){
             e.print();
         }
