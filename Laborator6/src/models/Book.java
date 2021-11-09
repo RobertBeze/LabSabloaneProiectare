@@ -41,6 +41,7 @@ public class Book implements Visitee {
 
     public void accept(Visitor visitor){
         this.visitor = visitor;
+        visitor.visitBook(this);
     }
 
 }

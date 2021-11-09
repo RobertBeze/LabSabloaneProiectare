@@ -35,5 +35,6 @@ public class TableOfContents implements Element, Visitee {
 
     public void accept(Visitor visitor){
         this.visitor = visitor;
+        visitor.visitTableOfContents(this);
     }
 }

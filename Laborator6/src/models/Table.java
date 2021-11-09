@@ -36,5 +36,6 @@ public class Table implements Element, Visitee{
 
     public void accept(Visitor visitor){
         this.visitor = visitor;
+        visitor.visitTable(this);
     }
 }

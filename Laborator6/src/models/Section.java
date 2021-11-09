@@ -38,5 +38,6 @@ public class Section implements Element, Visitee {
 
     public void accept(Visitor visitor) {
         this.visitor = visitor;
+        visitor.visitSection(this);
     }
 }

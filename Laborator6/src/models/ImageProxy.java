@@ -56,5 +56,6 @@ public class ImageProxy implements Element, Picture, Visitee {
 
     public void accept(Visitor visitor) {
         this.visitor = visitor;
+        visitor.visitImageProxy(this);
     }
 }

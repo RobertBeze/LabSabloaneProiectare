@@ -1,6 +1,5 @@
 package models;
 
-import models.Element;
 import services.ImageLoaderFactory;
 import services.ImageLoader;
 
@@ -62,5 +61,6 @@ public class Image implements Element, Picture, Visitee {
 
     public void accept(Visitor visitor) {
         this.visitor = visitor;
+        visitor.visitImage(this);
     }
 }
