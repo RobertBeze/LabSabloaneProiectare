@@ -1,7 +1,7 @@
 package ro.uvt.services;
 
 import ro.uvt.models.Context;
-import services.AlignStrategy;
+import ro.uvt.services.AlignStrategy;
 
 public class AlignCenter implements AlignStrategy {
 

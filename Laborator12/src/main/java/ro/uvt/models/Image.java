@@ -3,11 +3,31 @@ package ro.uvt.models;
 import ro.uvt.services.ImageLoaderFactory;
 import ro.uvt.services.ImageLoader;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Image implements Element, Picture, Visitee {
+
+@Entity
+public class Image extends Element implements Picture, Visitee {
     String urll;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @OneToMany
     List<Element> content;
     PictureContent picc;
     Dimension dimm;

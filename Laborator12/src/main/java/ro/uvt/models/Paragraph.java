@@ -2,13 +2,34 @@ package ro.uvt.models;
 
 import ro.uvt.models.Context;
 import ro.uvt.models.Element;
-import services.AlignStrategy;
+import ro.uvt.services.AlignStrategy;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Paragraph implements Element, Visitee {
+
+@Entity
+public class Paragraph extends Element implements Visitee {
     String text;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @OneToMany
     List<Element> content;
     AlignStrategy align = null;
     Visitor visitor = null;

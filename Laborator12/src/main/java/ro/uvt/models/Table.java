@@ -2,11 +2,31 @@ package ro.uvt.models;
 
 import ro.uvt.models.Element;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Table implements Element, Visitee{
+
+@Entity
+public class Table extends Element implements Visitee{
     String text;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @OneToMany
     List<Element> content;
     Visitor visitor=null;
 

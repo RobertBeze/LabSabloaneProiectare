@@ -1,10 +1,37 @@
 package ro.uvt.models;
 
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.HashMap;
 import java.util.Map;
 
+
+@Entity
 public class BookStatistics implements Visitor<Element> {
     Map<String, Integer> stats = new HashMap<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Map<String, Integer> getStats() {
+        return stats;
+    }
+
+    public void setStats(Map<String, Integer> stats) {
+        this.stats = stats;
+    }
+
+    @Id
+    @GeneratedValue
+    private Long id;
 
     public BookStatistics(){
         stats.put("Section", 0);

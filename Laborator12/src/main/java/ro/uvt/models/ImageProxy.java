@@ -1,11 +1,10 @@
 package ro.uvt.models;
-
-
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageProxy implements Element, Picture, Visitee {
+
+
+public class ImageProxy extends Element implements Picture, Visitee {
     String urll;
     Image realImage;
     List<Element> content;
