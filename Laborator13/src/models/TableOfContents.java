@@ -4,14 +4,17 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TableOfContents implements Element, Visitee {
+public class TableOfContents implements Element, Visitee, Observable {
     String title;
     List<Element> content;
     Visitor visitor;
+    String oldValue;
+    List<Observer> observerList;
 
     public TableOfContents(String txt){
         this.title = txt;
         content = new ArrayList<>();
+        this.observerList = new ArrayList<>();
     }
 
     public void add(Element e){
@@ -33,8 +36,32 @@ public class TableOfContents implements Element, Visitee {
         }
     }
 
+    @Override
+    public void setNewValue(String newValue) {
+        this.oldValue = this.title;
+        this.title = newValue;
+        notifyObservers();
+    }
+
     public void accept(Visitor visitor){
         this.visitor = visitor;
         visitor.visitTableOfContents(this);
+    }
+
+    @Override
+    public void addObserver(Observer obs) {
+        this.observerList.add(obs);
+    }
+
+    @Override
+    public void removeObserver(Observer obs) {
+        this.observerList.remove(observerList.indexOf(obs));
+    }
+
+    @Override
+    public void notifyObservers() {
+        for(Observer obs : observerList){
+            obs.update(this.title, this.oldValue);
+        }
     }
 }

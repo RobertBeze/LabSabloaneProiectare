@@ -6,7 +6,7 @@ import services.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Image implements Element, Picture, Visitee {
+public class Image implements Element, Picture, Visitee, Observable {
     String urll;
     List<Element> content;
     PictureContent picc;
@@ -14,12 +14,15 @@ public class Image implements Element, Picture, Visitee {
     ImageLoaderFactory img = new ImageLoaderFactory();
     ImageLoader trueimg;
     Visitor visitor = null;
+    List<Observer> observerList;
+    String oldValue;
 
     public Image(String txt){
         this.urll = txt;
         this.dimm = new Dimension(1024);
         this.picc = new PictureContent(txt);
         this.content = new ArrayList<>();
+        this.observerList = new ArrayList<>();
         try {
             this.trueimg = img.create(urll);
         } catch (Exception e) {
@@ -47,6 +50,13 @@ public class Image implements Element, Picture, Visitee {
         }
     }
 
+    @Override
+    public void setNewValue(String newValue) {
+        this.oldValue = this.urll;
+        this.urll = newValue;
+        notifyObservers();
+    }
+
     public String url(){
         return this.urll;
     }
@@ -62,5 +72,22 @@ public class Image implements Element, Picture, Visitee {
     public void accept(Visitor visitor) {
         this.visitor = visitor;
         visitor.visitImage(this);
+    }
+
+    @Override
+    public void addObserver(Observer obs) {
+        this.observerList.add(obs);
+    }
+
+    @Override
+    public void removeObserver(Observer obs) {
+        this.observerList.remove(observerList.indexOf(obs));
+    }
+
+    @Override
+    public void notifyObservers() {
+        for(Observer obs : observerList){
+            obs.update(this.urll, this.oldValue);
+        }
     }
 }

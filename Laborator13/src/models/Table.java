@@ -5,14 +5,17 @@ import models.Element;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Table implements Element, Visitee{
+public class Table implements Element, Visitee, Observable{
     String text;
     List<Element> content;
     Visitor visitor=null;
+    String oldValue;
+    List<Observer> observerList;
 
     public Table(String text){
         this.text = text;
         this.content = new ArrayList<>();
+        this.observerList = new ArrayList<>();
     }
 
     public void add(Element e){
@@ -34,8 +37,32 @@ public class Table implements Element, Visitee{
         }
     }
 
+    @Override
+    public void setNewValue(String newValue) {
+        this.oldValue = this.text;
+        this.text = newValue;
+        notifyObservers();
+    }
+
     public void accept(Visitor visitor){
         this.visitor = visitor;
         visitor.visitTable(this);
+    }
+
+    @Override
+    public void addObserver(Observer obs) {
+        this.observerList.add(obs);
+    }
+
+    @Override
+    public void removeObserver(Observer obs) {
+        this.observerList.remove(observerList.indexOf(obs));
+    }
+
+    @Override
+    public void notifyObservers() {
+        for(Observer obs : observerList){
+            obs.update(this.text, this.oldValue);
+        }
     }
 }

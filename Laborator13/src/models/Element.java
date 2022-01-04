@@ -5,4 +5,5 @@ public interface Element {
     public void remove(Element e);
     public int get(Element e);
     public void print();
+    public void setNewValue(String newValue);
 }
